@@ -48,7 +48,6 @@ class IndexAction extends BaseAction {
 	}
 
 	public function index() {
-		dump('aaaaaaaaaaaaaaaaaa');exit;
 		// POST 为加载更多，否则为分页加载，必须配合使用
 		$isPost = $_SERVER['REQUEST_METHOD'] == 'POST';
 		if($isPost){
