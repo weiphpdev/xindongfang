@@ -4,3 +4,10 @@
 .project
 
 *.prefs
+/data/schedule
+/data/session
+/data/lang
+/_runtime
+/config/config.inc.php
+/xindong.sql
+/.gitignore
