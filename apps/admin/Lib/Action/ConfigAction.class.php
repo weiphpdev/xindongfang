@@ -951,8 +951,8 @@ class ConfigAction extends AdministratorAction {
 				'1' => L ( 'PUBLIC_SYSTEMD_TRUE' ) 
 		);
 		// 数据的格式化与listKey保持一致
-		$map['position'] = 0;
-		$map['city'] = get_city();
+		$map ['position'] = 0;
+		$map ['city'] = get_city ();
 		$listData = model ( 'Navi' )->where ( $map )->order ( "order_sort asc" )->findPage ( 20 );
 		
 		$firstdata = array ();
@@ -1065,8 +1065,8 @@ class ConfigAction extends AdministratorAction {
 				'1' => L ( 'PUBLIC_SYSTEMD_TRUE' ) 
 		);
 		// 数据的格式化与listKey保持一致
-		$map['position'] = 1;
-		$map['city'] = get_city();
+		$map ['position'] = 1;
+		$map ['city'] = get_city ();
 		$listData = model ( 'Navi' )->where ( $map )->order ( "order_sort asc" )->findPage ( 20 );
 		
 		$firstdata = array ();
@@ -1182,8 +1182,8 @@ class ConfigAction extends AdministratorAction {
 				'1' => L ( 'PUBLIC_SYSTEMD_TRUE' ) 
 		);
 		// 数据的格式化与listKey保持一致
-		$map['position'] = 2;
-		$map['city'] = get_city();
+		$map ['position'] = 2;
+		$map ['city'] = get_city ();
 		$listData = model ( 'Navi' )->where ( $map )->order ( "order_sort asc" )->findPage ( 20 );
 		
 		$firstdata = array ();
@@ -1275,7 +1275,7 @@ class ConfigAction extends AdministratorAction {
 		} else {
 			if (! $_GET ['id']) {
 				$map ['parent_id'] = 0;
-				$map['city'] = get_city();
+				$map ['city'] = get_city ();
 				$rel = model ( 'Navi' )->add ( $map );
 			} else {
 				$rel = model ( 'Navi' )->where ( 'navi_id=' . intval ( $_GET ['id'] ) )->save ( $map );
@@ -1568,7 +1568,9 @@ class ConfigAction extends AdministratorAction {
 			$value ['cTime'] = friendlyDate ( $value ['cTime'] );
 			$value ['option'] = '<a href="' . U ( 'admin/Config/editCity', array (
 					'id' => $value ['id'] 
-			) ) . '">编辑</a>';
+			) ) . '">编辑</a>&nbsp;-&nbsp;<a href="' . U ( 'admin/Config/delCity', array (
+					'id' => $value ['id'] 
+			) ) . '">删除</a>';
 		}
 		
 		$this->displayList ( $listData );
@@ -1586,6 +1588,19 @@ class ConfigAction extends AdministratorAction {
 		);
 		$this->displayConfig ();
 	}
+	function check_admin_uid($uids, $id = '') {
+		if (empty ( $uids ))
+			return true;
+		$uidArr = array_filter ( explode ( ',', $uids ) );
+		foreach ( $uidArr as $uid ) {
+			$old_city = getMyCity ( $uid );
+			if ($old_city == 0 || $id == $old_city)
+				continue;
+			
+			$this->error ( '配置的管理员已经在别的城市配置过' );
+			exit ();
+		}
+	}
 	function doAddCity() {
 		$map ['city'] = safe ( $_POST ['city'] );
 		$info = M ( 'city' )->where ( $map )->find ();
@@ -1593,10 +1608,21 @@ class ConfigAction extends AdministratorAction {
 			$this->error ( '城市名称已经存在' );
 		}
 		
-		$map ['manager_uids'] = safe ( $_POST ['manager_uids'] );
+		$map ['manager_uids'] = t ( $_POST ['manager_uids'] );
+		$this->check_admin_uid ( $map ['manager_uids'] );
 		$map ['cTime'] = time ();
 		$id = M ( 'city' )->add ( $map );
-		
+		if ($id) {
+			// 初始化导航数据
+			$map2 ['city'] = 0;
+			$list = M ( 'navi' )->where ( $map2 )->select ();
+			foreach ( $list as $vo ) {
+				unset ( $vo ['navi_id'] );
+				$vo ['city'] = $id;
+				$res = M ( 'navi' )->add ( $vo );
+			}
+		}
+		exit ();
 		$this->assign ( 'jumpUrl', U ( 'admin/Config/city' ) );
 		$this->success ( L ( 'PUBLIC_ADD_SUCCESS' ) );
 	}
@@ -1630,12 +1656,17 @@ class ConfigAction extends AdministratorAction {
 		}
 		
 		$map ['manager_uids'] = $data ['manager_uids'] = t ( $_POST ['manager_uids'] );
-		
+		$this->check_admin_uid ( $map ['manager_uids'], $id );
 		$map2 ['id'] = $id;
 		$id = M ( 'city' )->where ( $map2 )->save ( $data );
 		
 		$this->assign ( 'jumpUrl', U ( 'admin/Config/city' ) );
 		$this->success ( L ( '编辑成功' ) );
+	}
+	function delCity() {
+		$map ['id'] = intval ( $_GET ['id'] );
+		M ( 'city' )->where ( $map )->delete ();
+		redirect ( U ( 'admin/Config/city' ) );
 	}
 	/**
 	 * 系统配置 - 地区配置

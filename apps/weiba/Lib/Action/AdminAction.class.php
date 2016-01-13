@@ -693,6 +693,9 @@
 			);
 			$map ['is_del'] = 0;
 			$map ['is_index'] = 1;
+		if ($this->mid != 1) {
+			$map ['city'] = get_city ();
+		}
 			$list = M ( 'weiba_post' )->where ( $map )->order ( 'last_reply_time desc,post_time desc' )->findPage ( 5 );
 			$scount = M ( 'weiba_post' )->where ( $map )->count ();
 			if ($scount < 5) {

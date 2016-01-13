@@ -28,8 +28,8 @@ class IndexAction extends Action {
 	 */
 	public function index() {
 // 		 $_SESSION['ttt2'] = 123;
-		dump ( $_SESSION );
-		exit ();
+// 		dump ( $_SESSION );
+// 		exit ();
 		$setting = model ( 'Xdata' )->lget ( 'square' );
 		$map = array ();
 		if ($setting ['channel'] == '1') {
