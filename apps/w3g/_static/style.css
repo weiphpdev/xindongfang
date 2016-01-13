@@ -7,7 +7,7 @@
 .s-select{height: 34px;padding:4px 0;border: 1px solid #cdcdcd;border-radius: 3px;background-color: #eeeeee;font-size: 14px;color: #333;width: 100%;}
 #pid select{height: 34px;padding:4px 0;border: 1px solid #cdcdcd;border-radius: 3px;background-color: #eeeeee;font-size: 14px;color: #333;width: 45%;margin-right: 10px;}
 
-.btn-big{width: 100%;height: 2.8em;background-color: #0095E5;border-radius: 3px;color: #fff;font-size: 1em;text-align: center;line-height: 2.8em;display: inline-block;}
+.btn-big{width: 100%;height: 2.8em;background-color: #18c7a7;border-radius: 3px;color: #fff;font-size: 1.2em;text-align: center;line-height: 2.8em;display: inline-block;}
 .btn, .btn-cancel, .btn-att-white, .btn_gray{width: 35%;height: 30px;background-color: #0095E5;border-radius: 3px;color: #fff;font-size: 1em;text-align: center;line-height: 30px;display: inline-block;}
 .btn_gray, .btn-att-white{background-color: #B2B2B2;}
 
@@ -96,23 +96,23 @@ a.top_stick:hover{background-position:-51px 0;text-decoration:none}*/
 .weiba_postlist .wbtz_list li{padding:0;margin:0;overflow:hidden; position:relative}
 .weiba_postlist .wbtz_list li a.img{display:block; width:100%; padding-top:1.5em;}
 .weiba_postlist .wbtz_list li a.img img{ width:100%; height:auto;}
-.weiba_postlist .wbtz_list li a.link{display:block;height:3em;line-height:3em;overflow:hidden;color:#333;position:relative; padding-left:2em; box-sizing:border-box}
-.weiba_postlist .wbtz_list li a.link img{width:1.5em; height:1.5em; border-radius:50%; display:inline-block;overflow:hidden; position:absolute;top:0.7em; left:0}
-.weiba_postlist .wbtz_list li a.abs{ position:absolute; bottom:0; left:0; background:rgba(0,0,0,0.5);color:#fff; width:100%; padding-left:2.5em}
+.weiba_postlist .wbtz_list li a.link{display:block;height:3em;line-height:3em;overflow:hidden;color:#333;position:relative; padding-left:2.5em; box-sizing:border-box}
+.weiba_postlist .wbtz_list li a.link img{width:2em; height:2em; border-radius:50%; display:inline-block;overflow:hidden; position:absolute;top:0.5em; left:0}
+.weiba_postlist .wbtz_list li a.abs{ position:absolute; bottom:0; left:0; background:rgba(0,0,0,0.5);color:#fff; width:100%; padding-left:3em}
 .weiba_postlist .wbtz_list li a.abs img{left:0.5em}
 
 
 .weiba_forumlist{}
-
+.section_m{ margin:0.75em;}
 .section{margin-top:1em;border-top: 1px solid #eee; border-bottom: 1px solid #eee;padding: 0 0.75em;background-color: #fff;}
 .section .slt{height: 44px;line-height: 44px;text-align: left;font-size: 1em;color: #666666;}
-	.section .slt span{margin-right: 0.75em;height: 0.75em;vertical-align: 2px;}
-	.section .slt a.right{font-size: 1em;color: #6e6e6e;}
+.section .slt span{margin-right: 0.75em;height: 0.75em;vertical-align: 2px; float:right}
+.section .slt a.right{font-size: 1em;color: #6e6e6e;}
 .section .slt2{height: 44px;line-height: 44px;text-align: center;font-size: 1em;color: #333;}
 	.section .slt2 a{color: #333;}
 .bklist{overflow: hidden;padding: 0.75em 0 0 0;border-top: 1px solid #eee;}
-.bklist dl{width: 25%;float: left;text-align: center;margin-bottom: 0.75em;}
-.bklist dl dt{padding: 0 10px;}
+.bklist dl{width: 33.3333%;float: left;text-align: center;margin-bottom: 0.75em;}
+.bklist dl dt{padding: 0 5px; text-align:center}
 .bklist dl dd{padding: 10px 5px 0 5px;}
 .bklist dl dd h3{font-size:1em;line-height: 20px;height: 20px;overflow: hidden;word-wrap: break-word;word-break: normal;}
 .bklist dl dd h3 a{color: #333;}
@@ -120,9 +120,13 @@ a.top_stick:hover{background-position:-51px 0;text-decoration:none}*/
 .bklist .weiba_postlist{padding: 0;}
 
 .navlist{}
-.navlist ul{}
-.navlist li{ height:3em; line-height:3em; text-indent:1em; border-top:1px solid #eee; border-bottom:1px solid #eee; margin:1em 0; background:url(img/sys/arrowR.png) no-repeat 95% 50%; background-size:0.6em 1em;}
-.navlist li a{ display:block; color:#333}
+.navlist ul{ margin-top:1em;}
+.navlist li{ height:3.2em; line-height:3.2em; text-indent:1em; border-top:1px solid #eee; background:#fff url(img/sys/arrowR.png) no-repeat 95% 50%; background-size:0.6em 1em;}
+.navlist li a{ display:block; color:#333;}
+.navlist li.no_arrow{ background:#fff; min-height:4.6em; line-height:4.6em;}
+.navlist li.no_arrow img{ border-radius:100%; height:3em; width:3em; margin:0.8em 0.5em 0.8em 0}
+.navlist li.no_arrow span.fr{ float:right; color:#888; margin-right:0.7em}
+.navlist li:last-child{ border-bottom:1px solid #eee;}
 
 
 .Glist{overflow: hidden;}
@@ -149,22 +153,35 @@ a.top_stick:hover{background-position:-51px 0;text-decoration:none}*/
 .pb .img_list .ico_close{position: absolute;right: 2px;top: 2px;}
 
 .postDetail{}
-.postDetail .pc_title{font-size: 1.2em;color: #000;padding:0 0.75em;line-height: 130%;word-wrap: break-word;word-break: normal;}
-.postDetail .pc_info{padding: 0.75em;overflow: hidden;}
-.postDetail .pc_info dt{float: left;width: 2.5em;height: 2.5em;margin-right: 0.75em;overflow: hidden;}
+.postDetail .pc_title{font-size: 1.4em;color: #000;padding:0 0.75em;line-height: 130%;word-wrap: break-word;word-break: normal; font-weight:bold;}
+.postDetail .pc_info{padding: 1em 0.75em;overflow: hidden;}
+.postDetail .pc_info dt{float: left;width: 3.4em;height: 3.4em;margin-right: 0.75em;overflow: hidden;}
 	.postDetail .pc_info dt img{border-radius: 50%;width: 100%;height: 100%;}
 .postDetail .pc_info dd{color: #666;line-height: 110%;}
 .floor{float: right;font-size: 1em;color: #A0A0A0}
 .postDetail .favorite{font-size:1em; float:right; margin-right:0.75em}
 .postDetail .favorite a{color:#0095E5;}
 .postDetail .favorite .unfavorite{color:#999}
+.postDetail .pc_info dd .name{ padding-top:0.55em}
 .postDetail .pc_info dd .name a{font-size: 1em;color: #666;}
-.postDetail .pc_info dd .info{font-size: 0.75em;color: #8a8a8a;margin-top: 0.75em;}
-.postDetail .pc_info dd .info .llnum{ background:url(images/ico_llan.png) no-repeat right center; background-size:auto 1em;padding-right:20px}
-.postDetail .pc_info dd .info .plnum{ background:url(images/ico_pl.png) no-repeat right center; background-size:auto 1em;padding-right:16px}
+.postDetail .pc_info dd .info{font-size: 0.75em;color: #8a8a8a;margin-top: 0.55em;}
+.postDetail .pc_info dd .info .llnum{ background:url(images/ico_llan.png) no-repeat left center; background-size:auto 1em;padding-left:1.3em; margin-right:0.3em}
+.postDetail .pc_info dd .info .plnum{ background:url(images/ico_pl.png) no-repeat left center; background-size:auto 1em;padding-left:1.3em}
+.postDetail .pc_info dd .info .pinfo{ float:right;}
 
-.postDetail .pc_text{padding: 0.75em;font-size: 1em;color: #444;line-height: 160%;word-wrap: break-word;word-break: normal;text-align:left;}
+.postDetail .pc_text{padding: 0.75em;font-size: 1em;color: #777777;line-height: 160%;word-wrap: break-word;word-break: normal;text-align:left;}
 .postDetail .pc_text img{padding:0.5em 0px;max-width:100%; height:auto;}
+.ninepic_list{ overflow:hidden; zoom:1; margin:10px -1.16%;}
+.ninepic_list img{ width:32%; float:left; margin:1.16%; padding:0;}
+.postDetail .pc_text .ninepic_list img{width:31%; float:left; margin:1.16%; padding:0;}
+
+.weiba_detail_bar{ position:fixed; bottom:0; right:0; left:0; height:3em; display:-webkit-box; background:#fafafa; z-index:10000; display:none;}
+.weiba_detail_bar a{ -webkit-box-flex:1; display:block; text-align:center;}
+.weiba_detail_bar a i{ display:inline-block; height:3em; width:3em;}
+.weiba_detail_bar a i.share{ background:url(img/sys/ic_share.png) no-repeat center center; background-size:1.2em;}
+.weiba_detail_bar a i.comment{ background:url(img/sys/ic_comment.png) no-repeat center center; background-size:1.2em;}
+.weiba_detail_bar a i.zan{ background:url(img/sys/ic_zan.png) no-repeat center center; background-size:1.2em;}
+.weiba_detail_bar a i.iszan{ background:url(img/sys/ic_zan2.png) no-repeat center center; background-size:1.2em;}
 
 .pc_reply{ padding:0 0.75em;}
 .pc_reply .weiba-sort{ height:3em; line-height:3em; border-top:1px solid #eee;}
@@ -249,9 +266,16 @@ a.top_stick:hover{background-position:-51px 0;text-decoration:none}*/
 .weibaPost .re_quote span{display: inline-block;float: left;}
 .weibaPost .re_quote .t{padding-left: 40px;}
 
-.weibaPost .pure-form .ts-text,.weibaPost .pure-form .ts-select{ width:100%; box-sizing:border-box; border-radius:0; border:none; padding:0.9em; border-bottom:1px solid #eee}
-.weibaPost .pure-form .ts-select{ padding:0.7em; color:#666}
-.weibaPost .pure-form .ts-textarea{ margin:0 !important}
+.weibaPost .pure-form .ts-text,.weibaPost .pure-form .ts-select{ width:100%; box-sizing:border-box; border-radius:0; border:none; padding:1em; border-bottom:1px solid #eee}
+.weibaPost .pure-form .ts-text{ margin-bottom:0;}
+.weibaPost .ts-select{width:100%; height:100%; border:none; background:none;}
+.weibaPost .pure-form .ts-textarea{ margin:0 !important;padding:1em; border:none;}
+.weibaPost .ts-footer{ background:#fff; border:none; height:auto; padding:1em}
+.weibaPost .ts-footer a{ height:80px; width:80px;}
+.weibaPost .ts-footer .fa-btn-picture{ background:#fff url(img/sys/new_add.png); height:80px; width:80px; background-size:cover;}
+.weibaPost .upload_img_wrap{}
+.weibaPost .upload_img_wrap #ts-upload-img-box{ display:inline; padding:0;}
+.weibaPost #ts-upload-img-box>div{ width:80px; height:80px; background-size:100% 100%; margin:0 0.3em 0.3em 0}
 
 .searchMain{padding: 70px 30px;}
 .searchMain .searchbox{width: 100%;margin: 0 auto;height: 34px;border: 1px solid #cdcdcd;border-radius: 3px;background-color: #eeeeee;}
@@ -479,10 +503,10 @@ html,body{height: 100%;}
 /*tab*/
 .tab{height: 40px;overflow: hidden;background-color: #fff;}
 .tab li{width: 33.3333%;border-bottom: 1px solid #eee;height: 39px;float: left;text-align: center;}
-.tab a{display: block;border-right: 1px solid #eee;font-size:1em;color: #0c0c0c;margin: 10px 0;line-height: 18px;}
+.tab a{display: block;border-right: 1px solid #eee;font-size:1em;color: #0c0c0c;margin: 0 0;line-height: 38px;}
 .tab a.noborder{border: none;}
-.tab a:hover, .tab li.current a{color: #0098e4;}
-.tab li.current{border-bottom: 2px solid #0095e5;height: 38px;}
+.tab a:hover, .tab li.current a{color: #09b394;}
+.tab li.current{border-bottom: 2px solid #09b394;height: 38px;}
 
 .tab_menu{border-bottom: 2px solid #eeeeee;height: 30px;line-height: 30px;position: relative;}
 .tab_menu li{float: left;width: 33.3%;text-align: center;position: relative;}
