@@ -10,6 +10,7 @@ class IndexAction extends AdministratorAction {
 
 	public function index() {
 		$nav = array();
+		if($this->mid==1){
 		foreach($this->navList as $k=>$v){
 			array_push($nav, array(
 				'name'    => L('PUBLIC_APPNAME_' . strtoupper($k)),
@@ -17,6 +18,10 @@ class IndexAction extends AdministratorAction {
 				'url'     => $v
 			));
 		}
+		}else{
+			//$nav[0] = array('name'=>'论坛','appname'=>'weiba','url'=>'weiba/Admin/index');
+		}
+		
 		$this->assign('nav',$nav);
 		$this->setTitle( L('PUBLIC_SYSTEM_MANAGEMENT') );
 		$this->assign('channel', C('admin_channel'));

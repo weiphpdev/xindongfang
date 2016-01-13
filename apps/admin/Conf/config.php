@@ -221,6 +221,7 @@ $city_menu = array(
 		'admin_channel'	  =>	array(
 				'system'      => L('PUBLIC_SYSTEM'),
 				'user'        => L('PUBLIC_USER'),
+				'weiba' => '论坛'
 		),
 		//后台菜单配置
 		'admin_menu'	=> array(
@@ -237,9 +238,21 @@ $city_menu = array(
 								L('PUBLIC_USER_MANAGEMENT')	=>	U('admin/User/index'),
 						),
 				),
+				'weiba' => array(
+						'版块列表' => array('版块列表'=>	U ( 'weiba/Admin/index' )),
+						'增加版块' => array('增加版块'=>	U ( 'weiba/Admin/addWeiba' )),
+						
+						'版块分类' => array('版块分类'=>	U ( 'weiba/Admin/weibaCate' )),
+						'帖子列表' => array('帖子列表'=>	U ( 'weiba/Admin/postList' )),
+						'帖子回收站' => array('帖子回收站'=>	U ( 'weiba/Admin/postRecycle' )),
+// 						'申请版主配置' => array('申请版主配置'=>	U ( 'weiba/Admin/weibaAdminAuditConfig' )),
+						'版主审核' => array('版主审核'=>	U ( 'weiba/Admin/weibaAdminAudit' )),
+// 						'申请版块配置' => array('申请版块配置'=>	U ( 'weiba/Admin/weibaAuditConfig' )),
+						'版块审核' => array('版块审核'=>	U ( 'weiba/Admin/weibaAudit' )),
+						'首页帖子' => array('首页帖子'=>	U ( 'weiba/Admin/indexPost' )),
+				)
 		)
 );
-
 
 $uid = $_SESSION['mid'];
 if($uid!=1 && is_city_admin($uid)){

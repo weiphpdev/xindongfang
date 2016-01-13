@@ -1,4 +1,4 @@
- <?php
+<?php
 	/**
  * 后台，用户管理控制器
  * @author liuxiaoqing <liuxiaoqing@zhishisoft.com>
@@ -59,7 +59,11 @@
 					'1' => '是',
 					'2' => '否' 
 			);
-			$weibacate = D ( 'weiba_category' )->findAll ();
+			$wcmap = array ();
+			if ($this->mid != 1) {
+				$wcmap ['city'] = get_city ();
+			}
+			$weibacate = D ( 'weiba_category' )->where($wcmap)->findAll ();
 			$cids = array ();
 			foreach ( $weibacate as $c ) {
 				$cids [$c ['id']] = $c ['name'];
@@ -97,9 +101,11 @@
 					'intro',
 					'who_can_post',
 					'admin_uid',
-					'recommend',
-					'city' 
+					'recommend'
 			);
+			if($this->mid==1){
+				$this->pageKeyList[] = 'city';
+			}
 			$this->opt ['who_can_post'] = array (
 					'0' => '所有人',
 					'1' => '吧内成员',
@@ -115,6 +121,7 @@
 				$cityArr [$ct ['id']] = $ct ['city'];
 			}
 			$this->opt ['city'] = $cityArr;
+			
 			$list = D ( 'WeibaCategory' )->getAllWeibaCate ();
 			$this->opt ['cid'] = $list;
 			// 表单URL设置
@@ -138,6 +145,11 @@
 			// dump($_POST);exit;
 			$data ['weiba_name'] = t ( $_POST ['weiba_name'] );
 			$data ['is_del'] = 0;
+			if($this->mid==1){
+				$data['city'] = intval($_POST['city']);
+			}else{
+				$data['city'] = get_city();
+			}
 			if (D ( 'weiba' )->where ( $data )->find ()) {
 				$this->error ( '此微吧已存在' );
 			}
@@ -232,9 +244,11 @@
 					'notify',
 					'who_can_post',
 					'admin_uid',
-					'recommend',
-					'city' 
+					'recommend'
 			);
+			if($this->mid==1){
+				$this->pageKeyList[] = 'city';
+			}
 			$list = D ( 'WeibaCategory' )->getAllWeibaCate ();
 			$this->opt ['cid'] = $list;
 			$this->opt ['who_can_post'] = array (
@@ -285,6 +299,11 @@
 			);
 			$map ['weiba_name'] = $data ['weiba_name'];
 			$map ['is_del'] = 0;
+			if($this->mid==1){
+				$data['city'] = $map['city'] = intval($_POST['city']);
+			}else{
+				$data['city'] = $map['city'] = get_city();
+			}
 			if (D ( 'weiba' )->where ( $map )->find ()) {
 				$this->error ( '此微吧已存在' );
 			}
@@ -299,7 +318,6 @@
 			$data ['who_can_post'] = t ( $_POST ['who_can_post'] );
 			$data ['admin_uid'] = t ( $_POST ['admin_uid'] );
 			$data ['recommend'] = intval ( $_POST ['recommend'] );
-			$data ['city'] = intval ( $_POST ['city'] );
 			
 			// # 修复，后台上传微吧logo前台没有logo
 			if ($data ['logo']) {
@@ -358,7 +376,11 @@
 					'title' => '删除分类',
 					'onclick' => "admin.delWeibaCate()" 
 			);
-			$list = D ( 'weiba_category' )->findPage ();
+			$map = array ();
+			if ($this->mid != 1) {
+				$map ['city'] = get_city ();
+			}
+			$list = D ( 'weiba_category' )->where ( $map )->findPage ();
 			foreach ( $list ['data'] as &$v ) {
 				$v ['DOACTION'] = "<a href='" . U ( 'weiba/Admin/editWeibaCate', array (
 						'id' => $v ['id'],
@@ -386,6 +408,7 @@
 			$name = t ( $_POST ['name'] );
 			if ($name) {
 				$data ['name'] = $name;
+				$data ['city'] = get_city ();
 				$exist = D ( 'WeibaCategory' )->where ( $data )->find ();
 				if ($exist) {
 					$this->error ( '已存在相同分类！' );
@@ -431,6 +454,7 @@
 						'neq',
 						$id 
 				);
+				$map['city'] = get_city();
 				$exist = D ( 'WeibaCategory' )->where ( $map )->find ();
 				if ($exist) {
 					$this->error ( '已存在相同分类！' );
@@ -598,7 +622,10 @@
 					'1' => '吧内置顶',
 					'2' => '全局置顶' 
 			);
-			$weibaList = D ( 'weiba' )->getHashList ( $k = 'weiba_id', $v = 'weiba_name' );
+			if ($this->mid != 1) {
+				$map ['city'] = get_city ();
+			}
+			$weibaList = D ( 'weiba' )->where($map)->getHashList ( $k = 'weiba_id', $v = 'weiba_name' );
 			$weibaList [0] = L ( 'PUBLIC_SYSTEMD_NOACCEPT' );
 			$this->opt ['weiba_id'] = $weibaList;
 			$this->pageKeyList = array (
@@ -755,7 +782,10 @@
 					'post_uid',
 					'weiba_id' 
 			);
-			$weibaList = D ( 'weiba' )->getHashList ( $k = 'weiba_id', $v = 'weiba_name' );
+			if ($this->mid != 1) {
+				$map ['city'] = get_city ();
+			}
+			$weibaList = D ( 'weiba' )->where($map)->getHashList ( $k = 'weiba_id', $v = 'weiba_name' );
 			$weibaList [0] = L ( 'PUBLIC_SYSTEMD_NOACCEPT' );
 			$this->opt ['weiba_id'] = $weibaList;
 			$this->pageKeyList = array (
@@ -1235,6 +1265,9 @@
 			}
 			$map ['status'] = 0;
 			// 数据的格式化与listKey保持一致
+			if ($this->mid != 1) {
+			    $map ['city'] = get_city ();
+		    }
 			$listData = D ( 'weiba_apply' )->where ( $map )->findPage ( 20 );
 			foreach ( $listData ['data'] as $k => $v ) {
 				$userInfo = model ( 'User' )->getUserInfo ( $v ['follower_uid'] );
@@ -1396,6 +1429,9 @@
 				);
 			}
 			$map ['status'] = 0;
+		if ($this->mid != 1) {
+			$map ['city'] = get_city ();
+		}
 			// 数据的格式化与listKey保持一致
 			$listData = D ( 'weiba' )->where ( $map )->order ( 'ctime desc' )->findPage ( 20 );
 			
@@ -1452,6 +1488,9 @@
 		 * @return void
 		 */
 		private function _initWeibaListAdminMenu() {
+			if ($this->mid != 1)
+				return false;
+			
 			$this->pageTab [] = array (
 					'title' => '微吧列表',
 					'tabHash' => 'index',

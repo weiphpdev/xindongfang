@@ -114,6 +114,9 @@ class WeibaModel extends Model {
 			$_POST ['weiba_cate'] && $map ['cid'] = intval ( $_POST ['weiba_cate'] );
 		}
 		$map ['is_del'] = 0;
+		if($_SESSION['mid']!=1){
+			$map['city'] = get_city();
+		}
 		// 查询数据
 		$list = $this->where ( $map )->order ( 'follower_count desc,thread_count desc' )->findPage ( $limit );
 		
@@ -192,6 +195,9 @@ class WeibaModel extends Model {
 					'in',
 					getSubByKey ( D ( 'weiba' )->where ( 'is_del=0' )->findAll (), 'weiba_id' ) 
 			);
+		}
+		if ($_SESSION ['mid'] != 1) {
+			$map ['city'] = get_city ();
 		}
 		$list = D ( 'weiba_post' )->where ( $map )->order ( 'last_reply_time desc,post_time desc' )->findPage ( $limit );
 		
