@@ -51,6 +51,10 @@ class PassportModel {
 		$login = M('User')->where($map)->find();
 		if($this->loginLocal($login['email'], $_POST['password'])) {
 			$GLOBALS['ts']['mid'] = $_SESSION['adminLogin'] = intval($_SESSION['mid']); 
+			if($_SESSION['mid']!=1){
+				$city = getMyCity($_SESSION['mid']);
+				get_city($city);
+			}
 			return true;			
 		} else {
 			return false;

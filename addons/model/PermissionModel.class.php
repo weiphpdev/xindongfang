@@ -95,6 +95,10 @@ class PermissionModel {
 						}
 					}
 				}
+				//增加城市管理员的登录权限
+				if (is_city_admin ( $uid )) {
+					$permission ['core']['admin'] ['admin_login'] = 1;
+				}
 				model('Cache')->set('perm_user_'.$uid, $permission, 600);
 			}
 			self::$permission[$uid] = $permission;

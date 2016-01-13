@@ -53,11 +53,19 @@ class UserAction extends AdministratorAction {
 		// 初始化用户列表管理菜单
 		$this->_initUserListAdminMenu('index');
 		// 数据的格式化与listKey保持一致
-		$listData = $this->_getUserList('20', $map, 'index');
+		
 		// 列表批量操作按钮
 		$this->pageButton[] = array('title'=>L('PUBLIC_SEARCH_USER'),'onclick'=>"admin.fold('search_form')");
-		$this->pageButton[] = array('title'=>L('PUBLIC_TRANSFER_USER_GROUP'),'onclick'=>"admin.changeUserGroup()");
 		$this->pageButton[] = array('title'=>'禁用用户','onclick'=>"admin.delUser()");
+		
+		$map = array();
+		if ($_SESSION ['mid'] != 1) {
+			$map ['city_id'] = get_city ();
+		}else{
+			$this->pageButton[] = array('title'=>L('PUBLIC_TRANSFER_USER_GROUP'),'onclick'=>"admin.changeUserGroup()");
+		}
+		$listData = $this->_getUserList('20', $map, 'index');
+		
 		// 转移用户部门，如果需要请将下面的注释打开
 		// $this->pageButton[] = array('title'=>L('PUBLIC_TRANSFER_DEPARTMENT'),'onclick'=>"admin.changeUserDepartment()");
 		$this->displayList($listData);
@@ -228,7 +236,9 @@ class UserAction extends AdministratorAction {
 		$this->pageTab[] = array('title'=>L('PUBLIC_DISABLE_LIST'),'tabHash'=>'dellist','url'=>U('admin/User/dellist'));
 		$this->pageTab[] = array('title'=>'禁言用户','tabHash'=>'disableSendList','url'=>U('admin/User/disableSendList'));
 		// $this->pageTab[] = array('title'=>'在线用户列表','tabHash'=>'online','url'=>U('admin/User/online'));
+		if($_SESSION['mid']==1){
 		$this->pageTab[] = array('title'=>L('PUBLIC_ADD_USER_INFO'),'tabHash'=>'addUser','url'=>U('admin/User/addUser'));
+		}
 		// 搜索选项的key值
 		// $this->searchKey = array('uid','uname','email','sex','department','user_group',array('ctime','ctime1'));
 		$this->searchKey = array('uid','uname','email','mobile','sex','user_group','user_category',array('ctime','ctime1'));
@@ -519,7 +529,10 @@ class UserAction extends AdministratorAction {
 		// 初始化用户列表管理菜单
 		$this->_initUserListAdminMenu();
 		// 列表key值 DOACTION表示操作
-		$this->pageKeyList = array('uid','email','mobile','uname','password','sex','user_group');
+		$this->pageKeyList = array('uid','email','mobile','uname','password','sex');
+		if($_SESSION['mid']==1){
+			$this->pageKeyList[] = 'user_group';
+		}
 		$this->opt['type'] = array('2'=>L('PUBLIC_SYSTEM_FIELD'));
 		// 字段选项配置
 		$this->opt['sex'] = array('1'=>L('PUBLIC_MALE'),'2'=>L('PUBLIC_FEMALE'));
@@ -565,7 +578,7 @@ class UserAction extends AdministratorAction {
 		$this->savePostUrl = U('admin/User/doUpdateUser');
 
 		// $this->notEmpty = array('email','uname','department_id');
-		$this->notEmpty = array('email','mobile','uname','user_group');
+		$this->notEmpty = array('email','mobile','uname');
        	$this->onsubmit = 'admin.checkUser(this)';
 
 		$this->displayConfig($userInfo);
@@ -614,7 +627,7 @@ class UserAction extends AdministratorAction {
 
 		// # 判断用户组是否选择
 		} elseif (count($group) <= 0) {
-			$this->error('请选择用户用户组');
+// 			$this->error('请选择用户用户组');
 
 		// # 生成密码
 		} elseif ($password) {
@@ -630,10 +643,10 @@ class UserAction extends AdministratorAction {
 		$uname and preg_match('/[\x7f-\xff]+/', $data['search_key'] = $uname) and $data['search_key'] .= ' ' . model('PinYin')->Pinyin($uname);
 
 		$data  and $model->where('`uid` = ' . $uid)->save($data);
-
+if(count($group)>0){
 		$group = implode(',', $group);
 		model('UserGroupLink')->domoveUsergroup($uid, $group);
-
+}
 		// # 清理用户缓存
 		$model->cleanCache($uid);
 		model('Cache')->rm('perm_user_' . $uid);

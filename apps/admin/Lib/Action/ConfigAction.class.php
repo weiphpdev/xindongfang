@@ -951,7 +951,9 @@ class ConfigAction extends AdministratorAction {
 				'1' => L ( 'PUBLIC_SYSTEMD_TRUE' ) 
 		);
 		// 数据的格式化与listKey保持一致
-		$listData = model ( 'Navi' )->where ( 'position=0' )->order ( "order_sort asc" )->findPage ( 20 );
+		$map['position'] = 0;
+		$map['city'] = get_city();
+		$listData = model ( 'Navi' )->where ( $map )->order ( "order_sort asc" )->findPage ( 20 );
 		
 		$firstdata = array ();
 		$seconddata = array ();
@@ -1063,7 +1065,9 @@ class ConfigAction extends AdministratorAction {
 				'1' => L ( 'PUBLIC_SYSTEMD_TRUE' ) 
 		);
 		// 数据的格式化与listKey保持一致
-		$listData = model ( 'Navi' )->where ( 'position=1' )->order ( "order_sort asc" )->findPage ( 20 );
+		$map['position'] = 1;
+		$map['city'] = get_city();
+		$listData = model ( 'Navi' )->where ( $map )->order ( "order_sort asc" )->findPage ( 20 );
 		
 		$firstdata = array ();
 		$seconddata = array ();
@@ -1178,7 +1182,9 @@ class ConfigAction extends AdministratorAction {
 				'1' => L ( 'PUBLIC_SYSTEMD_TRUE' ) 
 		);
 		// 数据的格式化与listKey保持一致
-		$listData = model ( 'Navi' )->where ( 'position=2' )->order ( "order_sort asc" )->findPage ( 20 );
+		$map['position'] = 2;
+		$map['city'] = get_city();
+		$listData = model ( 'Navi' )->where ( $map )->order ( "order_sort asc" )->findPage ( 20 );
 		
 		$firstdata = array ();
 		$seconddata = array ();
@@ -1269,6 +1275,7 @@ class ConfigAction extends AdministratorAction {
 		} else {
 			if (! $_GET ['id']) {
 				$map ['parent_id'] = 0;
+				$map['city'] = get_city();
 				$rel = model ( 'Navi' )->add ( $map );
 			} else {
 				$rel = model ( 'Navi' )->where ( 'navi_id=' . intval ( $_GET ['id'] ) )->save ( $map );

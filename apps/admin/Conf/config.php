@@ -54,7 +54,7 @@ $menu = array(
 				// L('PUBLIC_MAILTITLE_ADMIN')	=>	U('admin/Config/notify'),
 	    		//L('PUBLIC_POINTS_SETTING')	=>  U('admin/Apps/setCreditNode'),
 			//		'部门配置'					=> U('admin/Department/index'),
-	    	//	L('PUBLIC_AUTHORITY_SETTING')	=>  U('admin/Apps/setPermNode'),
+// 	    		L('PUBLIC_AUTHORITY_SETTING')	=>  U('admin/Apps/setPermNode'),
 	    		// L('PUBLIC_WEIBO_TEMPLATE_SETTING')	=>  U('admin/Apps/setFeedNode'),
 	    		'SEO配置'	=>  U('admin/Config/setSeo'),
 					'论坛城市'	=>  U('admin/Config/city'),
@@ -216,5 +216,33 @@ if(!file_exists(DATA_PATH.'/iswaf/config.php') && file_exists(ADDON_PATH.'/libra
 	//dump($res);exit;
 	$menu['admin_menu']['index']['首页']['安全防护'] = 'http://www.fanghuyun.com/?do=simple&IDKey='.md5(iswaf_connenct_key);
 }
+$city_menu = array(
+		//后台头部TAB配置
+		'admin_channel'	  =>	array(
+				'system'      => L('PUBLIC_SYSTEM'),
+				'user'        => L('PUBLIC_USER'),
+		),
+		//后台菜单配置
+		'admin_menu'	=> array(
+				
 
+				'system'	=> array(
+						L('PUBLIC_SYSTEM_SETTING')	=>	array(
+								L('PUBLIC_NAVIGATION_SETTING')	=>	U('admin/Config/nav'),
+						),
+				),
+
+				'user'	=>	array(
+						L('PUBLIC_USER')				=>	array(
+								L('PUBLIC_USER_MANAGEMENT')	=>	U('admin/User/index'),
+						),
+				),
+		)
+);
+
+
+$uid = $_SESSION['mid'];
+if($uid!=1 && is_city_admin($uid)){
+	return $city_menu;
+}
 return $menu;
